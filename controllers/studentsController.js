@@ -18,4 +18,16 @@ const createStudent = async (req, res) => {
   }
 };
 
-module.exports = { createStudent };
+const getAllStudents = async (req, res) => {
+  try {
+    const students = await studentsModel.find();
+    res.status(200).json(students);
+  } catch (error) {
+    console.log(
+      `ocurrio un error en el backend al intentar mostrar los estudiantes ${error}`
+    );
+    res.sendStatus(404);
+  }
+};
+
+module.exports = { createStudent, getAllStudents };

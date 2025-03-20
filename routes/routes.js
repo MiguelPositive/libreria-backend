@@ -1,7 +1,10 @@
 const express = require("express");
 const routes = express.Router();
 
-const { createStudent } = require("../controllers/studentsController.js");
+const {
+  createStudent,
+  getAllStudents,
+} = require("../controllers/studentsController.js");
 const {
   createBook,
   getAllBooks,
@@ -24,5 +27,6 @@ routes.get("/validate-user", validateUser);
 //estudiantes
 
 routes.post("/create-student", createStudent);
+routes.get("/getall-students", getAllStudents);
 
 module.exports = { routes };
