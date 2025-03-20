@@ -18,4 +18,15 @@ const createBook = async (req, res) => {
   }
 };
 
-module.exports = { createBook };
+const getAllBooks = async (req, res) => {
+  try {
+    const books = await booksModel.find();
+    res.status(200).json(books);
+  } catch (error) {
+    console.log(`ocurrio un error al momento de mostrar los libros ${error}`);
+
+    res.sendStatus(404);
+  }
+};
+
+module.exports = { createBook, getAllBooks };

@@ -1,20 +1,28 @@
 const express = require("express");
-
 const routes = express.Router();
 
+const { createStudent } = require("../controllers/studentsController.js");
+const {
+  createBook,
+  getAllBooks,
+} = require("../controllers/booksController.js");
 const {
   createUser,
   validateUser,
 } = require("../controllers/usersController.js");
-const { createStudent } = require("../controllers/studentsController.js");
 
-const { createBook } = require("../controllers/booksController.js");
+//libros
+
+routes.post("/create-book", createBook);
+routes.get("/getall-books", getAllBooks);
+
+//usuarios
 
 routes.post("/create-user", createUser);
 routes.get("/validate-user", validateUser);
 
-routes.post("/create-student", createStudent);
+//estudiantes
 
-routes.post("/create-book", createBook);
+routes.post("/create-student", createStudent);
 
 module.exports = { routes };
