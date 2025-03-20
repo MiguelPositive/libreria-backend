@@ -23,11 +23,10 @@ const createUser = async (req, res) => {
 
     await newUser.save();
 
-    console.log("ejecion exitosa");
-
     res.sendStatus(200);
   } catch (error) {
     console.log("Error en el backend al intentar crear el usuario " + error);
+    res.sendStatus(404);
   }
 };
 
@@ -49,6 +48,7 @@ const validateUser = async (req, res) => {
     }
   } catch (error) {
     console.log("ocurrio un error al intentar validar los usuarios" + error);
+    res.sendStatus(404);
   }
 };
 
