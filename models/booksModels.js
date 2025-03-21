@@ -19,6 +19,14 @@ const booksSchema = mongoose.Schema({
   available: {
     type: Boolean,
   },
+
+  infoStudent: {
+    type: Object,
+  },
+
+  departureDate: {
+    type: String,
+  },
 });
 
 const booksModel = mongoose.model("books", booksSchema);
