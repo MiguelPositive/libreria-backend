@@ -29,4 +29,21 @@ const getAllBooks = async (req, res) => {
   }
 };
 
-module.exports = { createBook, getAllBooks };
+//prestar libro
+const updateBook = async (req, res) => {
+  try {
+    const { _id, student, departureDate, available } = req.body;
+
+    await booksModel.findByIdAndUpdate(_id, {
+      available,
+      infoStudent: student,
+      departureDate,
+    });
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(`ocurrio un erro al momento de prestar el libro ${error}`);
+    res.send(404);
+  }
+};
+module.exports = { createBook, getAllBooks, updateBook };

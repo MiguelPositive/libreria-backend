@@ -8,6 +8,7 @@ const {
 const {
   createBook,
   getAllBooks,
+  updateBook,
 } = require("../controllers/booksController.js");
 const {
   createUser,
@@ -18,6 +19,7 @@ const {
 
 routes.post("/create-book", createBook);
 routes.get("/getall-books", getAllBooks);
+routes.post("/update-book", updateBook);
 
 //usuarios
 
