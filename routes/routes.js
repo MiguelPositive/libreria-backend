@@ -7,6 +7,7 @@ const {
 } = require("../controllers/studentsController.js");
 const {
   createBook,
+  createBookWithBuilder,
   getAllBooks,
   updateBook,
 } = require("../controllers/booksController.js");
@@ -18,6 +19,7 @@ const {
 //libros
 
 routes.post("/create-book", createBook);
+routes.post("/create-book-with-builder", createBookWithBuilder);
 routes.get("/getall-books", getAllBooks);
 routes.post("/update-book", updateBook);
 
