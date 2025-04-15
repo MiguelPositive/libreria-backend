@@ -1,9 +1,9 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const { connection } = require("./config/connection.js");
-const { routes } = require("./routes/routes.js");
+const connectionWithSiglenton = require("./config/connectionWithSiglenton.js");
 
-const db = require("./config/connectionWithSiglenton.js");
+const { routes } = require("./routes/routes.js");
 
 const {
   ConsoleLoggerFactory,
@@ -26,7 +26,9 @@ app.use("/", routes);
 
 (async () => {
   try {
-    await db._connect(); // Asegurar la conexión antes de iniciar el servidor
+    //utilizo singlenton en la conexion a la base de datos
+
+    await connectionWithSiglenton._connect(); // Asegurar la conexión antes de iniciar el servidor
     console.log("✅ Base de datos conectada correctamente");
 
     app.listen(PORT, () => {

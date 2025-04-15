@@ -1,13 +1,13 @@
 // db.js (Módulo Singleton)
 const mongoose = require("mongoose");
 
-class Database {
+class connectionWithSiglenton {
   constructor() {
-    if (!Database.instance) {
+    if (!connectionWithSiglenton.instance) {
       this._connect();
-      Database.instance = this;
+      connectionWithSiglenton.instance = this;
     }
-    return Database.instance;
+    return connectionWithSiglenton.instance;
   }
 
   async _connect() {
@@ -30,4 +30,4 @@ class Database {
   }
 }
 
-module.exports = new Database(); // Exportamos la única instancia
+module.exports = new connectionWithSiglenton(); // Exportamos la única instancia
