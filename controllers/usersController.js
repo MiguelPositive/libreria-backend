@@ -1,4 +1,4 @@
-const { usersModel } = require("../models/usersModels.js");
+const usersModel = require("../models/usersModels.js");
 const bcrypt = require("bcrypt");
 
 const ecnryptPass = async (password) => {
@@ -15,18 +15,51 @@ const verifyEncryptedPass = async (passwordEntered, passwordSaved) => {
 
 const createUser = async (req, res) => {
   try {
-    const { user, password } = req.body;
+    const { user, password, programa, fechaNacimiento, ciudad, horario } =
+      req.body;
 
-    newPass = await ecnryptPass(password);
+    const newPass = await ecnryptPass(password);
 
-    const newUser = await usersModel({ user, password: newPass });
+    // Crear el prototipo base según horario
+    let prototypeUser;
+    if (horario === "diurna") {
+      prototypeUser = new usersModel({
+        user: "default",
+        password: "default",
+        programa: "Ingeniería",
+        fechaNacimiento: "2000-01-01",
+        ciudad: "Bogotá",
+        horario: "diurna",
+      });
+    } else {
+      prototypeUser = new usersModel({
+        user: "default",
+        password: "default",
+        programa: "Administración",
+        fechaNacimiento: "2000-01-01",
+        ciudad: "Bogotá",
+        horario: "nocturna",
+      });
+    }
 
+    // Clonamos el prototipo
+    const newUser = prototypeUser.clone();
+
+    // Reemplazamos los valores con los datos del request
+    newUser.user = user;
+    newUser.password = newPass;
+    newUser.programa = programa;
+    newUser.fechaNacimiento = fechaNacimiento;
+    newUser.ciudad = ciudad;
+    newUser.horario = horario;
+
+    // Guardar el nuevo usuario
     await newUser.save();
 
-    res.sendStatus(200);
+    res.sendStatus(200); // Enviar estado 200 si todo salió bien
   } catch (error) {
-    console.log("Error en el backend al intentar crear el usuario " + error);
-    res.sendStatus(404);
+    console.error("Error en el backend al intentar crear el usuario: " + error);
+    res.sendStatus(404); // Enviar estado 404 si hay un error
   }
 };
 

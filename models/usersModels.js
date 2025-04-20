@@ -1,20 +1,28 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-const usersSchema = mongoose.Schema({
+// Definimos el esquema del usuario
+const userSchema = new mongoose.Schema({
+  user: { type: String, required: true },
+  password: { type: String, required: true },
+  programa: { type: String, required: true },
+  fechaNacimiento: { type: String, required: true },
+  ciudad: { type: String, required: true },
+  horario: { type: String, required: true, enum: ["diurna", "nocturna"] },
+});
 
-    user: {
-        type: String,
-        trim: true
-    },
+// Método clone: patrón prototype
+userSchema.methods.clone = function () {
+  return new this.constructor({
+    user: this.user,
+    password: this.password,
+    programa: this.programa,
+    fechaNacimiento: this.fechaNacimiento,
+    ciudad: this.ciudad,
+    horario: this.horario,
+  });
+};
 
-    password: {
-        type: String,
-        trim: true
-    }
+// Creamos el modelo
+const usersModel = mongoose.model("users", userSchema);
 
-
-})
-
-const usersModel = mongoose.model("users", usersSchema);
-
-module.exports = {usersModel}
+module.exports = usersModel;
