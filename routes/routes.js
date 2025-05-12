@@ -26,7 +26,7 @@ routes.post("/update-book", updateBook);
 //usuarios
 
 routes.post("/create-user", createUser);
-routes.get("/validate-user", validateUser);
+routes.post("/validate-user", validateUser);
 
 //estudiantes
 

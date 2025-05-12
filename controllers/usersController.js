@@ -1,5 +1,6 @@
 const usersModel = require("../models/usersModels.js");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const ecnryptPass = async (password) => {
   const saltRounds = 10; // Número de rondas de cifrado (mayor = más seguro)
@@ -65,6 +66,8 @@ const createUser = async (req, res) => {
 
 const validateUser = async (req, res) => {
   try {
+    console.log("llego al backend");
+
     const { user, password } = req.body;
 
     // verifica que el usuario exista y devuelve un objeto
@@ -73,11 +76,15 @@ const validateUser = async (req, res) => {
     // si no existe el usuario se envia un mensaje donde se dice que no se encontro
 
     if (!userFound) {
-      return res.status(404).json({ message: "Usuario no encontrado" });
+      return res.status(200).json({ message: "Usuario no encontrado" });
     } else if (await verifyEncryptedPass(password, userFound.password)) {
-      return res.status(200).json({ message: "validación correcta" });
+      const token = jwt.sign({ user }, process.env.SECRET_KEY, {
+        expiresIn: "1h",
+      });
+
+      return res.status(200).json(token);
     } else {
-      return res.status(404).json({ message: "contraseña incorrecta" });
+      return res.status(200).json({ message: "contraseña incorrecta" });
     }
   } catch (error) {
     console.log("ocurrio un error al intentar validar los usuarios" + error);

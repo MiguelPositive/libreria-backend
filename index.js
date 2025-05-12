@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const { connection } = require("./config/connection.js");
 const connectionWithSiglenton = require("./config/connectionWithSiglenton.js");
+const cors = require("cors");
 
 const { routes } = require("./routes/routes.js");
 
@@ -10,7 +11,7 @@ const {
   FileLoggerFactory,
 } = require("./factoryMethod/loggerFactory.js");
 
-// 🏗 Escoge qué fábrica usar:
+//  Escoge qué fábrica usar:
 const loggerFactory = new ConsoleLoggerFactory(); // Cambia a ConsoleLoggerFactory si quieres logs en consola
 const logger = loggerFactory.createLogger();
 
@@ -21,6 +22,9 @@ app.use(express.json());
 
 dotenv.config();
 //connection(); conexion normal
+
+// se utiliza para desactivar los cors
+app.use(cors());
 
 app.use("/", routes);
 
