@@ -67,15 +67,17 @@ const getAllBooks = async (req, res) => {
   }
 };
 
-//prestar libro
+//prestar
 const updateBook = async (req, res) => {
   try {
-    const { _id, student, departureDate, available } = req.body;
+    const { _id, infoStudent, departureDate, available } = req.body;
+
+    console.log(req.body);
 
     await booksModel.findByIdAndUpdate(_id, {
-      available,
-      infoStudent: student,
+      infoStudent,
       departureDate,
+      available,
     });
 
     res.sendStatus(200);

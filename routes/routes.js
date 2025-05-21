@@ -16,6 +16,8 @@ const {
   validateUser,
 } = require("../controllers/usersController.js");
 
+const { hello } = require("../controllers/dashboardController.js");
+
 //libros
 
 routes.post("/create-book", createBook);
@@ -32,5 +34,9 @@ routes.post("/validate-user", validateUser);
 
 routes.post("/create-student", createStudent);
 routes.get("/getall-students", getAllStudents);
+
+//dashboard
+
+routes.get("/dashboard", hello);
 
 module.exports = { routes };

@@ -65,6 +65,8 @@ const createUser = async (req, res) => {
 };
 
 const validateUser = async (req, res) => {
+  console.log("vlidado desde el telefono");
+
   try {
     console.log("llego al backend");
 
@@ -76,8 +78,9 @@ const validateUser = async (req, res) => {
     // si no existe el usuario se envia un mensaje donde se dice que no se encontro
 
     if (!userFound) {
-      return res.status(200).json({ message: "Usuario no encontrado" });
+      return res.status(200).json({ message: "usuario no encontrado" });
     } else if (await verifyEncryptedPass(password, userFound.password)) {
+      //cuando el usuario existe y la contraseña es correcta se genera un token
       const token = jwt.sign({ user }, process.env.SECRET_KEY, {
         expiresIn: "1h",
       });
