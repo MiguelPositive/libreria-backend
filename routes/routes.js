@@ -10,6 +10,7 @@ const {
   createBookWithBuilder,
   getAllBooks,
   updateBook,
+  removeStudentFromBook,
 } = require("../controllers/booksController.js");
 const {
   createUser,
@@ -24,6 +25,7 @@ routes.post("/create-book", createBook);
 routes.post("/create-book-with-builder", createBookWithBuilder);
 routes.get("/getall-books", getAllBooks);
 routes.post("/update-book", updateBook);
+routes.post("/remove-student", removeStudentFromBook);
 
 //usuarios
 

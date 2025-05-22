@@ -86,4 +86,41 @@ const updateBook = async (req, res) => {
     res.send(404);
   }
 };
-module.exports = { createBook, createBookWithBuilder, getAllBooks, updateBook };
+
+const removeStudentFromBook = async (req, res) => {
+  const { _id } = req.body;
+
+  console.log(_id);
+
+  try {
+    const updated = await booksModel.findByIdAndUpdate(_id, {
+      $unset: {
+        infoStudent: "",
+        departureDate: "",
+      },
+      $set: {
+        available: true,
+      },
+    });
+
+    if (!updated) {
+      return res.status(404).json({ message: "Libro no encontrado" });
+    }
+
+    return res.sendStatus(200);
+  } catch (error) {
+    console.error(
+      "error en el backend al eliminar estudiante del libro:",
+      error
+    );
+    return res.status(500).json({ message: "Error interno del servidor" });
+  }
+};
+
+module.exports = {
+  createBook,
+  createBookWithBuilder,
+  getAllBooks,
+  updateBook,
+  removeStudentFromBook,
+};
